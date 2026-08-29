@@ -31,8 +31,8 @@ def bonito(t):
 
 
 T = {
- "es": {"T_TITLE":"muestra","T_NAV_MENU":"Menú","T_NAV_PHOTOS":"Fotos","T_NAV_LOC":"Dónde estamos","T_CALL":"Llamar","T_DIRECTIONS":"Cómo llegar","T_ORDER":"Ordenar en línea","T_RESERVE":"Reservar mesa","T_VIEWMENU":"Ver el menú","T_KNOWN_EYE":"Lo que hacemos","T_KNOWN_H":"Lo que aquí se sirve.","T_MENU_EYE":"El menú","T_MENU_H":"Nuestro menú.","T_PHOTOS_EYE":"Fotos","T_PHOTOS_H":"Cómo se vería.","T_LOC_EYE":"Dónde estamos","T_LOC_H":"Cómo llegar.","T_F_ADDR":"Dirección","T_F_PHONE":"Teléfono","T_F_HOURS":"Horarios","T_HERO_SUB":"En Houston, Texas. Llámenos o venga.","T_HERO_ALT":"Foto de ejemplo del tipo de comida","T_MAP_ALT":"Mapa ilustrado de la ubicación"},
- "en": {"T_TITLE":"sample page","T_NAV_MENU":"Menu","T_NAV_PHOTOS":"Photos","T_NAV_LOC":"Find us","T_CALL":"Call","T_DIRECTIONS":"Directions","T_ORDER":"Order online","T_RESERVE":"Reserve a table","T_VIEWMENU":"View the menu","T_KNOWN_EYE":"What we do","T_KNOWN_H":"What's served here.","T_MENU_EYE":"The menu","T_MENU_H":"Our menu.","T_PHOTOS_EYE":"Photos","T_PHOTOS_H":"How it could look.","T_LOC_EYE":"Find us","T_LOC_H":"How to get here.","T_F_ADDR":"Address","T_F_PHONE":"Phone","T_F_HOURS":"Hours","T_HERO_SUB":"In Houston, Texas. Give us a call or come by.","T_HERO_ALT":"Sample photo of this kind of food","T_MAP_ALT":"Illustrated map of the location"},
+ "es": {"T_INV_H":"Aquí va su menú.","T_INV_P":"Por ahora esta página muestra cómo se vería su restaurante en internet. El menú es lo primero que la gente busca.","T_INV_P2":"Mándeme una foto de su menú y yo lo acomodo aquí, sus platillos y sus precios tal como los tiene. Sin costo, y la página es suya de todos modos.","T_INV_STAMP":"Ejemplo de acomodo. No son platillos ni precios reales.","T_INV_CTA":"Mándeme su menú","T_MOCK_H":"Menú","T_TITLE":"muestra","T_NAV_MENU":"Menú","T_NAV_PHOTOS":"Fotos","T_NAV_LOC":"Dónde estamos","T_CALL":"Llamar","T_DIRECTIONS":"Cómo llegar","T_ORDER":"Ordenar en línea","T_RESERVE":"Reservar mesa","T_VIEWMENU":"Ver el menú","T_KNOWN_EYE":"Lo que hacemos","T_KNOWN_H":"Lo que aquí se sirve.","T_MENU_EYE":"El menú","T_MENU_H":"Nuestro menú.","T_PHOTOS_EYE":"Fotos","T_PHOTOS_H":"Cómo se vería.","T_LOC_EYE":"Dónde estamos","T_LOC_H":"Cómo llegar.","T_F_ADDR":"Dirección","T_F_PHONE":"Teléfono","T_F_HOURS":"Horarios","T_HERO_SUB":"En Houston, Texas. Llámenos o venga.","T_HERO_ALT":"Foto de ejemplo del tipo de comida","T_MAP_ALT":"Mapa ilustrado de la ubicación"},
+ "en": {"T_INV_H":"Your menu goes here.","T_INV_P":"Right now this page shows what your restaurant could look like online. The menu is the part people look for first.","T_INV_P2":"Send me a photo of your menu and I will lay it out here, your dishes and your prices exactly as you have them. No charge, and the page is yours either way.","T_INV_STAMP":"Sample layout. These are not real dishes or real prices.","T_INV_CTA":"Send me your menu","T_MOCK_H":"Menu","T_TITLE":"sample page","T_NAV_MENU":"Menu","T_NAV_PHOTOS":"Photos","T_NAV_LOC":"Find us","T_CALL":"Call","T_DIRECTIONS":"Directions","T_ORDER":"Order online","T_RESERVE":"Reserve a table","T_VIEWMENU":"View the menu","T_KNOWN_EYE":"What we do","T_KNOWN_H":"What's served here.","T_MENU_EYE":"The menu","T_MENU_H":"Our menu.","T_PHOTOS_EYE":"Photos","T_PHOTOS_H":"How it could look.","T_LOC_EYE":"Find us","T_LOC_H":"How to get here.","T_F_ADDR":"Address","T_F_PHONE":"Phone","T_F_HOURS":"Hours","T_HERO_SUB":"In Houston, Texas. Give us a call or come by.","T_HERO_ALT":"Sample photo of this kind of food","T_MAP_ALT":"Illustrated map of the location"},
 }
 CORT = {
  "es": lambda a,n,t: "<strong>Ésta es una muestra de cortesía.</strong> La hice yo, "+a+", como ejemplo de cómo se vería "+n+" en internet. <strong>No es el sitio oficial de "+n+"</strong> y no fue hecha ni autorizada por ellos. Las fotos son de banco, no son de este restaurante. Si al negocio le gusta, se la paso sin costo; si no la quiere, la doy de baja el mismo día. Contacto: "+t,
@@ -65,26 +65,36 @@ def dock(b, t, mapa):
 
 
 def seccion_menu(b, t):
-    if not hay(b.get("menuUrl")):
-        return ""
-    return ('<section class="pad light" id="menu">\n  <div class="wrap">\n'
-            '    <div class="head rv">\n      <p class="eyebrow">%s</p>\n'
-            '      <h2 class="display-l">%s</h2>\n    </div>\n'
-            '    <p style="margin-top:30px">%s</p>\n  </div>\n</section>'
-            % (t["T_MENU_EYE"], t["T_MENU_H"], btn_ext(b["menuUrl"], t["T_VIEWMENU"], "btn--ink")))
+    if hay(b.get("menuUrl")):
+        return ('<section class="pad light" id="menu"><div class="wrap"><div class="head rv">'
+                '<p class="eyebrow">%s</p><h2 class="display-l">%s</h2></div>'
+                '<p style="margin-top:30px">%s</p></div></section>'
+                % (t["T_MENU_EYE"], t["T_MENU_H"], btn_ext(b["menuUrl"], t["T_VIEWMENU"], "btn--ink")))
+    # Sin menu real: la invitacion al dueno. Barras abstractas a proposito:
+    # aqui NO se inventa ni un platillo ni un precio.
+    fila = lambda c: ('<div class="mi__row"><span class="mi__bar mi__bar--%s"></span>'
+                      '<span class="mi__dots"></span><span class="mi__p"></span></div>' % c)
+    tel = re.sub("[^0-9]", "", str(D["autorTel"]))
+    return ('<section class="pad light" id="menu"><div class="wrap"><div class="head rv">'
+            '<p class="eyebrow">%s</p><h2 class="display-l">%s</h2>'
+            '<p class="lede">%s</p></div><div class="mi"><div class="mi__mock rv">'
+            '<h4>%s</h4>%s%s%s%s'
+            '<p class="mi__stamp">%s</p></div><div class="rv d1">'
+            '<p class="lede">%s</p><p style="margin-top:26px">'
+            '<a class="btn btn--ink" href="tel:+1%s"><span class="btn__lbl">%s</span>'
+            '<span class="btn__num">%s</span></a></p></div></div></div></section>'
+            % (t["T_MENU_EYE"], t["T_INV_H"], t["T_INV_P"], t["T_MOCK_H"],
+               fila("n"), fila("n2"), fila("n3"), fila("n4"),
+               t["T_INV_STAMP"], t["T_INV_P2"], tel, t["T_INV_CTA"], D["autorTel"]))
 
 
 def nav_menu(b, t):
-    """El enlace a #menu solo si la seccion de menu existe. Nada de enlaces muertos."""
-    if not hay(b.get("menuUrl")):
-        return ""
-    return '      <a href="#menu">%s</a>\n' % t["T_NAV_MENU"]
+    """La seccion #menu siempre se dibuja, asi que el enlace nunca esta muerto."""
+    return '      <a href="#menu">%s</a>' % t["T_NAV_MENU"] + chr(10)
 
 
 def foot_menu(b, t):
-    if not hay(b.get("menuUrl")):
-        return ""
-    return '          <li><a href="#menu">%s</a></li>\n' % t["T_NAV_MENU"]
+    return '          <li><a href="#menu">%s</a></li>' % t["T_NAV_MENU"] + chr(10)
 
 
 def fila_horarios(b, t):
@@ -132,7 +142,7 @@ def main():
             raise SystemExit("quedaron huecos sin llenar en " + b["slug"])
         carpeta = OUT / ("para-" + b["slug"])
         carpeta.mkdir(parents=True, exist_ok=True)
-        (carpeta / "index.html").write_text(page, encoding="utf-8")
+        (carpeta / "index.html").write_text(page, encoding="utf-8", newline=chr(10))
         n += 1
     print("paginas generadas: %d | con pedidos: %d | con reservas: %d" % (n, con_orden, con_reserva))
     if n != len(D["negocios"]):

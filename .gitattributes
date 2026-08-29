@@ -1,0 +1,4 @@
+# Todo el texto se guarda con saltos de linea de Unix (LF).
+# Sin esto, Windows mete retornos de carro y los dos generadores
+# (build.mjs en Vercel y build.py aqui) dejan de dar el mismo archivo.
+* text=auto eol=lf
