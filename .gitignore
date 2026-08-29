@@ -1,0 +1,31 @@
+# ─── SECRETOS — esto NUNCA se sube ─────────────────────────
+# .env.local trae el VERCEL_OIDC_TOKEN. Es una llave. Fuera.
+.env
+.env.*
+*.key
+*.pem
+*.p12
+credentials.json
+secrets.json
+
+# ─── Vercel ────────────────────────────────────────────────
+.vercel
+
+# ─── DATOS DE PERSONAS — jamas en un repositorio ───────────
+# Los contactos viven solo en ~/mi-mina/, que no se publica.
+# Esto es un cinturon de seguridad por si algo se copia aqui.
+*.csv
+*.vcf
+contactos*
+prospectos*
+mi-mina/
+
+# ─── Lo que se genera solo ─────────────────────────────────
+# Las 15 paginas se reconstruyen con: node build.mjs
+public/
+node_modules/
+
+# ─── Basura del sistema ────────────────────────────────────
+Thumbs.db
+desktop.ini
+.DS_Store
